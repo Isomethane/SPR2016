@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <title>MM5</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+    <script type="text/javascript" src="animation/input/mouse.js"></script>
+    <script type="text/javascript" src="animation/render/primitive/primitive.js"></script>
+    <script type="text/javascript" src="animation/render/primitive/samples.js"></script>
+    <script type="text/javascript" src="animation/render/resources/material.js"></script>
+    <script type="text/javascript" src="animation/render/resources/shader.js"></script>
+    <script type="text/javascript" src="animation/render/resources/texture.js"></script>
+    <script type="text/javascript" src="animation/render/framebuffer.js"></script>
+    <script type="text/javascript" src="animation/render/render.js"></script>
+    <script type="text/javascript" src="animation/units/unit_box.js"></script>
+    <script type="text/javascript" src="animation/units/unit_checkers.js"></script>
+    <script type="text/javascript" src="animation/units/unit_simple.js"></script>
+    <script type="text/javascript" src="animation/units/unit_fractal.js"></script>
+    <script type="text/javascript" src="animation/animation.js"></script>
+    <script type="text/javascript" src="support/math.js"></script>
+    <script type="text/javascript" src="support/matr.js"></script>
+    <script type="text/javascript" src="support/uv.js"></script>
+    <script type="text/javascript" src="support/vec.js"></script>
+
+    <script type="text/javascript">
+        function main(canvasId) {
+            var anim = new animation();
+            anim.init(canvasId);
+            anim.addUnit(new unitCheckers());
+            anim.run();
+        }
+    </script>
+</head>
+
+<body onload="main('canvas');">
+    <canvas id='canvas' style="border: none;" width="512" height="512"></canvas><br><br>
+
+    Size
+    <input id="Size" type="number" value="10" min="1" max="59">
+</body>
+
+</html>
