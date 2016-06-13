@@ -9,8 +9,37 @@ html {
     position: absolute;
     left:300px;
 }
-#radio {
+#buffers {
     position: absolute;
     top:10px;
     left:10px;
+}
+#light_model {
+    position: absolute;
+    top:10px;
+    left:100px;
+}
+#gamma {
+    position: absolute;
+    top:70px;
+    left:100px;
+}
+#lights {
+    position: absolute;
+    top:150px;
+    left:10px;
+}
+#num_of_lights {
+    width:50px;
+}
+#tone_mapping {
+    position: absolute;
+    top:180px;
+    left:10px;
+}
+#exposure_value {
+    width:50px;
+}
+#malysheva_value {
+    width:50px;
 }

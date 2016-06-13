@@ -11,66 +11,42 @@ function lightingManager(anim) {
     this.gDiffuse = new texture().init();
     this.gSpecularShininess = new texture().init();
 
+    this.textures = [
+        this.gPosition,
+        this.gNormal,
+        this.gAmbient,
+        this.gDiffuse,
+        this.gSpecularShininess
+    ];
+
     this.renderbuffer = gl.createRenderbuffer();
 
     this.lightingPassMaterial = null;
     this.screenQuad = null;
 
     this.toShow = {value: 0};
+    this.shadingModel = {value: 0};
+    this.gamma = {value: 0};
+    this.toneMappingType = {value: 0};
+    this.exposure = {value: 10};
+    this.malysheva = {value: 10};
 
     this.initBuffers = function() {
         // position buffer
-        gl.bindTexture(gl.TEXTURE_2D, this.gPosition.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
-            0, gl.RGBA, gl.FLOAT, null);
-
-        // normal buffer
-        gl.bindTexture(gl.TEXTURE_2D, this.gNormal.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
-            0, gl.RGBA, gl.FLOAT, null);
-
-        // ambient buffer
-        gl.bindTexture(gl.TEXTURE_2D, this.gAmbient.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
-            0, gl.RGBA, gl.FLOAT, null);
-
-        // diffuse buffer
-        gl.bindTexture(gl.TEXTURE_2D, this.gDiffuse.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
-            0, gl.RGBA, gl.FLOAT, null);
-
-        // specular + shininess buffer
-        gl.bindTexture(gl.TEXTURE_2D, this.gSpecularShininess.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
-            0, gl.RGBA, gl.FLOAT, null);
-
+        for (var i = 0; i < this.textures.length; i++) {
+            gl.bindTexture(gl.TEXTURE_2D, this.textures[i].texture);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
+                0, gl.RGBA, gl.FLOAT, null);
+        }
         this.draw_buffers_ext.drawBuffersWEBGL(this.bufs);
 
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[0], gl.TEXTURE_2D, this.gPosition.texture, 0);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[1], gl.TEXTURE_2D, this.gNormal.texture, 0);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[2], gl.TEXTURE_2D, this.gAmbient.texture, 0);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[3], gl.TEXTURE_2D, this.gDiffuse.texture, 0);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[4], gl.TEXTURE_2D, this.gSpecularShininess.texture, 0);
+        for (var i = 0; i < this.textures.length; i++) {
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, this.bufs[i], gl.TEXTURE_2D, this.textures[i].texture, 0);
+        }
 
         gl.bindRenderbuffer(gl.RENDERBUFFER, this.renderbuffer);
         gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, gl.drawingBufferWidth, gl.drawingBufferHeight);
@@ -86,6 +62,11 @@ function lightingManager(anim) {
         this.lightingPassMaterial.addTexture(this.gDiffuse, "gDiffuse");
         this.lightingPassMaterial.addTexture(this.gSpecularShininess, "gSpecularShininess");
         this.lightingPassMaterial.addIntUniform(this.toShow, "toShow");
+        this.lightingPassMaterial.addIntUniform(this.shadingModel, "shadingModel");
+        this.lightingPassMaterial.addIntUniform(this.gamma, "gamma");
+        this.lightingPassMaterial.addIntUniform(this.toneMappingType, "toneMappingType");
+        this.lightingPassMaterial.addFloatUniform(this.exposure, "exposure");
+        this.lightingPassMaterial.addFloatUniform(this.malysheva, "malysheva");
 
         this.screenQuad = createQuadrangle(this.lightingPassMaterial);
 
@@ -106,12 +87,13 @@ function lightingManager(anim) {
             alert("Failed to init 'OES_texture_float_linear' extension.");
         }
 
-        this.bufs = [];
-        this.bufs[0] = this.draw_buffers_ext.COLOR_ATTACHMENT0_WEBGL;
-        this.bufs[1] = this.draw_buffers_ext.COLOR_ATTACHMENT1_WEBGL;
-        this.bufs[2] = this.draw_buffers_ext.COLOR_ATTACHMENT2_WEBGL;
-        this.bufs[3] = this.draw_buffers_ext.COLOR_ATTACHMENT3_WEBGL;
-        this.bufs[4] = this.draw_buffers_ext.COLOR_ATTACHMENT4_WEBGL;
+        this.bufs = [
+            this.draw_buffers_ext.COLOR_ATTACHMENT0_WEBGL,
+            this.draw_buffers_ext.COLOR_ATTACHMENT1_WEBGL,
+            this.draw_buffers_ext.COLOR_ATTACHMENT2_WEBGL,
+            this.draw_buffers_ext.COLOR_ATTACHMENT3_WEBGL,
+            this.draw_buffers_ext.COLOR_ATTACHMENT4_WEBGL
+        ];
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.gBuffer);
         this.initBuffers();
@@ -162,7 +144,8 @@ function lightingManager(anim) {
         gl.uniform3fv(gl.getUniformLocation(this.lightingPassMaterial.shader.program, "lightSpecular"),
             new Float32Array(lightSpecular));
         gl.uniform1i(gl.getUniformLocation(this.lightingPassMaterial.shader.program, "noofLights"),
-            this.pointLights.length);
+            document.getElementById("num_of_lights").value);
+
         if (document.getElementById("lighting").checked)
             this.toShow.value = 0;
         else if (document.getElementById("position").checked)
@@ -175,7 +158,28 @@ function lightingManager(anim) {
             this.toShow.value = 4;
         else if (document.getElementById("specular").checked)
             this.toShow.value = 5;
+        
+        if (document.getElementById("phong").checked)
+            this.shadingModel.value = 0;
+        else
+            this.shadingModel.value = 1;
 
+        if (document.getElementById("gamma_off").checked)
+            this.gamma.value = 0;
+        else
+            this.gamma.value = 1;
+
+        if (document.getElementById("tone_mapping_off").checked)
+            this.toneMappingType.value = 0;
+        else if (document.getElementById("tone_mapping_reinhard").checked)
+            this.toneMappingType.value = 1;
+        else if (document.getElementById("tone_mapping_exposure").checked)
+            this.toneMappingType.value = 2;
+        else
+            this.toneMappingType.value = 3;
+        
+        this.exposure.value = document.getElementById("exposure_value").value / 10;
+        this.malysheva.value = document.getElementById("malysheva_value").value / 10;
     };
 
     this.lightingPass = function() {

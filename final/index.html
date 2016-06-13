@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>MM5</title>
+    <title>MM5 Advanced Lighting</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
@@ -47,15 +47,37 @@
 </head>
 
 <body onload="main('canvas');">
-    <canvas id='canvas' style="border: none;"></canvas>
-    <div id="radio">
+    <canvas id='canvas' style="border: none;" width="100" height="100"></canvas>
+    <form id="buffers">
         <input type="radio" id="lighting" name="radio" checked="checked"><label for="lighting">Lighting</label><br>
         <input type="radio" id="position" name="radio"><label for="position">Position</label><br>
         <input type="radio" id="normal" name="radio"><label for="normal">Normal</label><br>
         <input type="radio" id="ambient" name="radio"><label for="ambient">Ambient</label><br>
         <input type="radio" id="diffuse" name="radio"><label for="diffuse">Diffuse</label><br>
         <input type="radio" id="specular" name="radio"><label for="specular">Specular</label><br>
-    </div>
+    </form>
+    <form id="light_model">
+        <input type="radio" id="phong" name="radio" checked="checked"><label for="phong">Phong shading</label><br>
+        <input type="radio" id="blinn-phong" name="radio"><label for="blinn-phong">Blinn-Phong shading</label><br>
+    </form>
+    <form id="gamma">
+        Gamma correction<br>
+        <input type="radio" id="gamma_on" name="radio"><label for="gamma_on">On</label><br>
+        <input type="radio" id="gamma_off" name="radio" checked="checked"><label for="gamma_off">Off</label><br>
+    </form>
+    <form id="lights">
+        Number of light sources
+        <input id="num_of_lights" type="number" value="4" min="1" max="50">
+    </form>
+    <form id="tone_mapping">
+        Tone mapping type<br>
+        <input type="radio"  id="tone_mapping_off" name="radio" checked="checked"><label for="tone_mapping_off">Off</label><br>
+        <input type="radio"  id="tone_mapping_reinhard" name="radio"><label for="tone_mapping_reinhard">Reinhard</label><br>
+        <input type="radio"  id="tone_mapping_exposure" name="radio"><label for="tone_mapping_exposure">Exposure</label>
+        <input type="number" id="exposure_value" value="10" min="1" max="100"><label for="exposure_value">·10^-1</label><br>
+        <input type="radio"  id="tone_mapping_malysheva" name="radio"><label for="tone_mapping_malysheva">Malysheva</label>
+        <input type="number" id="malysheva_value" value="10" min="1" max="500"><label for="malysheva_value">·10^-1</label><br>
+    </form>
 </body>
 
 </html>
