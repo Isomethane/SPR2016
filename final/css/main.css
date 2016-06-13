@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    overflow: hidden;
+}
+#canvas {
+    position: absolute;
+    left:300px;
+}
+#radio {
+    position: absolute;
+    top:10px;
+    left:10px;
+}

@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>MM5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+    <script type="text/javascript" src="js/support/libs/three.min.js"></script>
+    <script type="text/javascript" src="js/support/libs/stats.min.js"></script>
+
+    <script type="text/javascript" src="js/support/libs/jquery-3.0.0.min.js"></script>
+
+    <script type="text/javascript" src="js/support/math/color.js"></script>
+    <script type="text/javascript" src="js/support/math/math.js"></script>
+    <script type="text/javascript" src="js/support/math/matr.js"></script>
+    <script type="text/javascript" src="js/support/math/uv.js"></script>
+    <script type="text/javascript" src="js/support/math/vec.js"></script>
+
+    <script type="text/javascript" src="js/animation/input/mouse.js"></script>
+    <script type="text/javascript" src="js/animation/camera/camera.js"></script>
+
+    <script type="text/javascript" src="js/animation/render/primitive/primitive.js"></script>
+    <script type="text/javascript" src="js/animation/render/primitive/primitive_samples.js"></script>
+
+    <script type="text/javascript" src="js/animation/render/resources/material/material.js"></script>
+    <script type="text/javascript" src="js/animation/render/resources/material/material_samples.js"></script>
+
+    <script type="text/javascript" src="js/animation/render/resources/shader.js"></script>
+    <script type="text/javascript" src="js/animation/render/resources/texture.js"></script>
+
+    <script type="text/javascript" src="js/animation/render/deferred shading/light_manager.js"></script>
+    <script type="text/javascript" src="js/animation/render/light/light.js"></script>
+
+    <script type="text/javascript" src="js/animation/render/render.js"></script>
+    <script type="text/javascript" src="js/animation/animation.js"></script>
+    <script type="text/javascript" src="js/animation/units/unit_box.js"></script>
+
+    <script type="text/javascript">
+        function main(canvasId) {
+            var anim = new animation();
+            anim.init(canvasId);
+            anim.addUnit(new unitBox());
+            anim.run();
+        }
+    </script>
+</head>
+
+<body onload="main('canvas');">
+    <canvas id='canvas' style="border: none;"></canvas>
+    <div id="radio">
+        <input type="radio" id="lighting" name="radio" checked="checked"><label for="lighting">Lighting</label><br>
+        <input type="radio" id="position" name="radio"><label for="position">Position</label><br>
+        <input type="radio" id="normal" name="radio"><label for="normal">Normal</label><br>
+        <input type="radio" id="ambient" name="radio"><label for="ambient">Ambient</label><br>
+        <input type="radio" id="diffuse" name="radio"><label for="diffuse">Diffuse</label><br>
+        <input type="radio" id="specular" name="radio"><label for="specular">Specular</label><br>
+    </div>
+</body>
+
+</html>
