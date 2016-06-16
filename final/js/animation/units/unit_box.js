@@ -19,7 +19,7 @@ function unitBox() {
          }
 
         this.room = createSkyBox(
-            phongMaterial(anim, new color(0.0, 0.0, 0.0), new color(0.1, 0.1, 0.1), new color(0.3, 0.3, 0.3), 400)
+            phongMaterial(anim, new color(0.0, 0.0, 0.7), new color(0.1, 0.1, 0.1), new color(0.3, 0.3, 0.3), 400)
         );
         this.box = createBox(
             phongMaterial(anim, new color(0.0, 0.0, 1.0), new color(0.5, 0.5, 0.5), new color(0.1, 0.1, 0.1), 10)

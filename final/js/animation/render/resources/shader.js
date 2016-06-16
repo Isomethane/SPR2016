@@ -40,6 +40,8 @@ function shader(id) {
 
         if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
             alert("Could not initialise shader " + id);
+        
+        return this;
     };
 
     this.apply = function() {
@@ -57,4 +59,6 @@ function shader(id) {
         if ((this.program.textureCoordAttribute = gl.getAttribLocation(this.program, "aTextureCoord")) != -1)
             gl.enableVertexAttribArray(this.program.textureCoordAttribute);
     };
+    
+    return this;
 }

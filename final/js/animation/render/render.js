@@ -21,7 +21,6 @@ function render() {
         window.addEventListener('resize', function() {
             self.canvas.width = window.innerWidth - 300;
             self.canvas.height = window.innerHeight;
-            self.isResized = true;
         }, false);
         this.initGL();
         gl.enable(gl.DEPTH_TEST);
@@ -30,7 +29,6 @@ function render() {
         this.container = document.createElement('div');
         document.body.appendChild(this.container);
 
-        // prepare stats
         this.stats = new Stats();
         this.stats.domElement.style.position = 'absolute';
         this.stats.domElement.style.bottom = '0px';

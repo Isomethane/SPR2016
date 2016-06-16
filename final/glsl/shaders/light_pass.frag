@@ -1,3 +1,5 @@
+#extension GL_EXT_draw_buffers : require
+
 precision highp float;
 
 uniform vec3 cameraPos;
@@ -138,28 +140,32 @@ vec4 shadeSpecularBlinnPhong(void) {
 
 void main(void) {
     if (toShow == 0)
-        gl_FragColor = shadingModel == 0 ? shadePhong() : shadeBlinnPhong();
+        gl_FragData[0] = shadingModel == 0 ? shadePhong() : shadeBlinnPhong();
     else if (toShow == 1)
-        gl_FragColor = texture2D(gPosition, coord);
+        gl_FragData[0] = texture2D(gPosition, coord);
     else if (toShow == 2)
-        gl_FragColor = texture2D(gNormal, coord);
+        gl_FragData[0] = texture2D(gNormal, coord);
     else if (toShow == 3)
-        gl_FragColor = vec4(texture2D(gAmbient, coord).xyz * lightAmbient, 1.0);
+        gl_FragData[0] = vec4(texture2D(gAmbient, coord).xyz * lightAmbient, 1.0);
     else if (toShow == 4)
-        gl_FragColor = shadeDiffuse();
+        gl_FragData[0] = shadeDiffuse();
     else
-        gl_FragColor = shadingModel == 0 ? shadeSpecularPhong() : shadeSpecularBlinnPhong();
+        gl_FragData[0] = shadingModel == 0 ? shadeSpecularPhong() : shadeSpecularBlinnPhong();
 
     if (toShow == 0 || toShow == 4 || toShow == 5) {
         if (toneMappingType == 1)
-            gl_FragColor = vec4(gl_FragColor.rgb / (gl_FragColor.rgb + vec3(1.0)), 1.0);
+            gl_FragData[0] = vec4(gl_FragData[0].rgb / (gl_FragData[0].rgb + vec3(1.0)), 1.0);
         else if (toneMappingType == 2)
-            gl_FragColor = vec4(vec3(1.0) - exp(-gl_FragColor.rgb * exposure), 1.0);
+            gl_FragData[0] = vec4(vec3(1.0) - exp(-gl_FragData[0].rgb * exposure), 1.0);
         else if (toneMappingType == 3)
-             gl_FragColor = vec4(gl_FragColor.rgb / vec3(malysheva), 1.0);
+             gl_FragData[0] = vec4(gl_FragData[0].rgb / vec3(malysheva), 1.0);
 
         if (gamma == 1) {
-            gl_FragColor = vec4(pow(gl_FragColor.rgb, vec3(1.0 / 2.2)), 1.0);
+            gl_FragData[0] = vec4(pow(gl_FragData[0].rgb, vec3(1.0 / 2.2)), 1.0);
         }
     }
+
+    float brightness = dot(gl_FragData[0].rgb, vec3(0.2126, 0.7152, 0.0722));
+    if (brightness > 1.0)
+        gl_FragData[1] = vec4(gl_FragData[0].rgb, 1.0);
 }
