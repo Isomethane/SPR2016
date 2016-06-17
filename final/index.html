@@ -38,13 +38,13 @@
 
     <script type="text/javascript" src="js/animation/render/render.js"></script>
     <script type="text/javascript" src="js/animation/animation.js"></script>
-    <script type="text/javascript" src="js/animation/units/unit_box.js"></script>
+    <script type="text/javascript" src="js/animation/units/unit_skeleton.js"></script>
 
     <script type="text/javascript">
         function main(canvasId) {
             var anim = new animation();
             anim.init(canvasId);
-            anim.addUnit(new unitBox());
+            anim.addUnit(new unitSkeleton());
             anim.run();
         }
     </script>
@@ -61,17 +61,8 @@
         <input type="radio" id="specular" name="radio"><label for="specular">Specular</label><br>
     </form>
     <form id="light_model">
-        <input type="radio" id="phong" name="radio" checked="checked"><label for="phong">Phong shading</label><br>
-        <input type="radio" id="blinn-phong" name="radio"><label for="blinn-phong">Blinn-Phong shading</label><br>
-    </form>
-    <form id="gamma">
-        Gamma correction<br>
-        <input type="radio" id="gamma_on" name="radio"><label for="gamma_on">On</label><br>
-        <input type="radio" id="gamma_off" name="radio" checked="checked"><label for="gamma_off">Off</label><br>
-    </form>
-    <form id="lights">
-        Number of light sources
-        <input id="num_of_lights" type="number" value="4" min="1" max="50">
+        <input type="radio" id="phong" name="radio"><label for="phong">Phong shading</label><br>
+        <input type="radio" id="blinn-phong" name="radio" checked="checked"><label for="blinn-phong">Blinn-Phong shading</label><br>
     </form>
     <form id="tone_mapping">
         Tone mapping type<br>
@@ -81,6 +72,36 @@
         <input type="number" id="exposure_value" value="10" min="1" max="100"><label for="exposure_value">·10^-1</label><br>
         <input type="radio"  id="tone_mapping_malysheva" name="radio"><label for="tone_mapping_malysheva">Malysheva</label>
         <input type="number" id="malysheva_value" value="10" min="1" max="500"><label for="malysheva_value">·10^-1</label><br>
+    </form>
+
+    <form id="bloom">
+        Bloom<br>
+        <input type="radio"  id="bloom_off" name="radio"><label for="bloom_off">Off</label><br>
+        <input type="radio"  id="bloom_on" name="radio" checked="checked"><label for="bloom_on">On</label><br>
+        Level0 Iterations
+        <input type="number" id="bloom_iterations0" value="0" min="0" max="15"><br>
+        Level1 Iterations
+        <input type="number" id="bloom_iterations1" value="0" min="0" max="15"><br>
+        Level2 Iterations
+        <input type="number" id="bloom_iterations2" value="0" min="0" max="15"><br>
+        Level3 Iterations
+        <input type="number" id="bloom_iterations3" value="15" min="0" max="15"><br>
+    </form>
+    <form id="bloom_threshold">
+        Threshold<br>
+        <input type="number" id="bloom_threshold_value" value="10" min="5" max="300">·10^-1<br>
+    </form>
+    <form id="lights">
+        Scene abmbient<br>
+        R<input id="ambient_r" type="number" value="5" min="0" max="100">
+        G<input id="ambient_g" type="number" value="5" min="0" max="100">
+        B<input id="ambient_b" type="number" value="5" min="0" max="100"><br>
+        Number of light sources
+        <input id="num_of_lights" type="number" value="25" min="1" max="50"><br>
+        Light sources radius
+        <input id="rad_of_lights" type="number" value="30" min="1" max="1000">·10^-1<br>
+        Light sources brightness
+        <input id="brightness" type="number" value="10" min="1" max="1000">·10^-1
     </form>
 </body>
 

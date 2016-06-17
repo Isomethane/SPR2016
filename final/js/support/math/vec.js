@@ -21,7 +21,7 @@ function vec(x, y, z) {
     };
 
     this.add = function(v) {
-        var r = this;
+        var r = this.clone();
         r.x += v.x;
         r.y += v.y;
         r.z += v.z;
@@ -29,7 +29,7 @@ function vec(x, y, z) {
     };
 
     this.subtract = function(v) {
-        var r = this;
+        var r = this.clone();
         r.x -= v.x;
         r.y -= v.y;
         r.z -= v.z;
@@ -37,10 +37,21 @@ function vec(x, y, z) {
     };
 
     this.multiply = function(n) {
-        var r = this;
+        var r = this.clone();
         r.x *= n;
         r.y *= n;
         r.z *= n;
+        return r;
+    };
+
+    this.cross = function(v) {
+        var ax = this.x, ay = this.y, az = this.z,
+            bx = v.x,    by = v.y, bz = v.z;
+
+        var r = new vec();
+        r.x = ay * bz - az * by;
+        r.y = az * bx - ax * bz;
+        r.z = ax * by - ay * bx;
         return r;
     };
 

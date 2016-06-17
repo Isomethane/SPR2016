@@ -15,12 +15,12 @@ function render() {
     
     this.init = function(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.width = window.innerWidth - 300;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = window.innerWidth - 350;
+        this.canvas.height = window.innerHeight - 100;
         var self = this;
         window.addEventListener('resize', function() {
-            self.canvas.width = window.innerWidth - 300;
-            self.canvas.height = window.innerHeight;
+            self.canvas.width = window.innerWidth - 350;
+            self.canvas.height = window.innerHeight - 100;
         }, false);
         this.initGL();
         gl.enable(gl.DEPTH_TEST);

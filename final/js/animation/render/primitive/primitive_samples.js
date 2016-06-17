@@ -377,20 +377,19 @@ function createSphere(lat, long, material) {
     return sphere;
 }
 
-function createTeapot(material) {
+function createModel(name, material) {
     var client = new XMLHttpRequest();
-    client.open("GET", "js/models/teapot.json");
-    this.teapot = new primitive();
-    this.teapot.isLoaded = false;
-    var self = this;
+    client.open("GET", "js/models/" + name);
+    var model = new primitive();
+    model.isLoaded = false;
     client.onreadystatechange = function() {
         if (client.readyState == 4) {
-            self.teapot.isLoaded = true;
+            model.isLoaded = true;
             var data = JSON.parse(client.responseText);
-            self.teapot.create(data.vertexPositions, data.indices, data.vertexNormals, null, data.vertexTextureCoords, material);
+            model.create(data.vertexPositions, data.indices, data.vertexNormals, null, data.vertexTextureCoords, material);
         }
     };
     client.send();
 
-    return this.teapot;
+    return model;
 }

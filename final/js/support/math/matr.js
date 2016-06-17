@@ -626,6 +626,7 @@ function matr() {
     };
 
     this.lookAt = function(eye, center, up) {
+
         var x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
 
         if (Math.abs(eye.x - center.x) < epsilon &&

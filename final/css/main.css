@@ -8,6 +8,7 @@ html {
 #canvas {
     position: absolute;
     left:300px;
+    top:50px;
 }
 #buffers {
     position: absolute;
@@ -19,27 +20,68 @@ html {
     top:10px;
     left:100px;
 }
-#gamma {
-    position: absolute;
-    top:70px;
-    left:100px;
-}
-#lights {
-    position: absolute;
-    top:150px;
-    left:10px;
-}
-#num_of_lights {
-    width:50px;
-}
+
 #tone_mapping {
     position: absolute;
-    top:180px;
+    top:150px;
     left:10px;
 }
 #exposure_value {
     width:50px;
 }
 #malysheva_value {
+    width:50px;
+}
+
+#bloom {
+    position: absolute;
+    top:270px;
+    left:10px;
+}
+
+#bloom_iterations0 {
+    width:50px;
+}
+#bloom_iterations1 {
+    width:50px;
+}
+#bloom_iterations2 {
+    width:50px;
+}
+#bloom_iterations3 {
+    width:50px;
+}
+
+#bloom_threshold {
+    position: absolute;
+    top:270px;
+    left:80px;
+}
+
+#bloom_threshold_value {
+    width:65px;
+}
+
+#lights {
+    position: absolute;
+    top:430px;
+    left:10px;
+}
+#num_of_lights {
+    width:50px;
+}
+#ambient_r {
+    width:50px;
+}
+#ambient_g {
+    width:50px;
+}
+#ambient_b {
+    width:50px;
+}
+#rad_of_lights {
+    width:50px;
+}
+#brightness {
     width:50px;
 }

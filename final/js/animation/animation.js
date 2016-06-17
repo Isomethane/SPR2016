@@ -1,6 +1,5 @@
 function animation() {
     this.render = new render();
-    this.camera = new camera();
     this.mouse = new mouse();
     
     this.startTime = new Date().getTime();;
@@ -23,6 +22,7 @@ function animation() {
     this.init = function(canvasId) {
         this.render.init(canvasId);
         this.mouse.init(canvasId);
+        this.camera = new camera(this);
         this.lightingManager = new lightingManager(this).init();
     };
     

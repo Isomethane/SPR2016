@@ -38,7 +38,10 @@ function material(anim) {
     
     this.sendUniforms = function() {
         if (gl.getUniformLocation(this.shader.program, "proj") != -1)
-            gl.uniformMatrix4fv(gl.getUniformLocation(this.shader.program, "proj"), false, anim.camera.matrix.m);
+            gl.uniformMatrix4fv(gl.getUniformLocation(this.shader.program, "proj"), false, anim.camera.proj.m);
+
+        if (gl.getUniformLocation(this.shader.program, "view") != -1)
+            gl.uniformMatrix4fv(gl.getUniformLocation(this.shader.program, "view"), false, anim.camera.view.m);
 
         if (gl.getUniformLocation(this.shader.program, "matrix") != -1)
             gl.uniformMatrix4fv(gl.getUniformLocation(this.shader.program, "matrix"), false, anim.matrix.m);
