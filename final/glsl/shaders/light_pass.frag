@@ -41,7 +41,12 @@ vec4 shadePhong(void) {
     vec3 viewDir = normalize(cameraPos - position.xyz);
 
     if (ambient.x == 1000.0 || ambient.y == 1000.0 || ambient.z == 1000.0)
-        return vec4(ambient.x / 1000.0 * brightness, ambient.y / 1000.0 * brightness, ambient.z / 1000.0 * brightness, 1.0);
+        return vec4(
+            ambient.x / 1000.0 * brightness * 5.0,
+            ambient.y / 1000.0 * brightness * 5.0,
+            ambient.z / 1000.0 * brightness * 5.0,
+            1.0
+        );
 
     vec3 light = ambient * lightAmbient;
 
@@ -72,7 +77,12 @@ vec4 shadeBlinnPhong(void) {
     vec3 viewDir = normalize(cameraPos - position.xyz);
 
     if (ambient.x == 1000.0 || ambient.y == 1000.0 || ambient.z == 1000.0)
-        return vec4(ambient.x / 1000.0 * brightness, ambient.y / 1000.0 * brightness, ambient.z / 1000.0 * brightness, 1.0);
+        return vec4(
+            ambient.x / 1000.0 * brightness * 5.0,
+            ambient.y / 1000.0 * brightness * 5.0,
+            ambient.z / 1000.0 * brightness * 5.0,
+            1.0
+        );
 
     vec3 light = ambient * lightAmbient;
 
