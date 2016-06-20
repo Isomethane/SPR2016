@@ -2,15 +2,26 @@ function render() {
     
     this.initGL = function() {
         try {
-            gl = this.canvas.getContext("webgl");
+            gl = this.canvas.getContext("webgl2", {antialias: false});
             gl.viewportWidth = this.canvas.width;
             gl.viewportHeight = this.canvas.height;
         } catch (e) {
-            alert("Could not initialise WebGL.");
+            alert("Could not initialise WebGL 2.");
         }
         if (!gl) {
-            alert("Could not initialise WebGL.");
+            alert("Could not initialise WebGL 2.");
         }
+
+        if (!gl.getExtension("OES_texture_float_linear"))
+            alert("Could not get 'OES_texture_float_linear' extension.");
+        if (!gl.getExtension("WEBGL_color_buffer_float") && !gl.getExtension("EXT_color_buffer_float"))
+            alert("Could not get 'color_buffer_float' extension.");
+
+        gl.enable(gl.DEPTH_TEST);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+        gl.enable(gl.CULL_FACE);
+        gl.cullFace(gl.BACK);
     };
     
     this.init = function(canvasId) {

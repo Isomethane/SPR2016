@@ -63,27 +63,27 @@ function primitive() {
 
         if (this.vertices != null) {
             gl.bindBuffer(gl.ARRAY_BUFFER, this.vBuffer);
-            if (gl.getAttribLocation(this.material.shader.program, "aVertexPosition") != -1)
+            if (gl.getAttribLocation(this.material.shader.program, "position") != -1)
                 gl.vertexAttribPointer(this.material.shader.program.vertexPositionAttribute,
                                             this.vBuffer.itemSize, gl.FLOAT, false, 0, 0);
         }
 
         if (this.normals != null) {
             gl.bindBuffer(gl.ARRAY_BUFFER, this.nBuffer);
-            if (gl.getAttribLocation(this.material.shader.program, "aVertexNormal") != -1)
+            if (gl.getAttribLocation(this.material.shader.program, "normal") != -1)
                 gl.vertexAttribPointer(this.material.shader.program.vertexNormalAttribute,
                                             this.nBuffer.itemSize, gl.FLOAT, false, 0, 0);
         }
         
         if (this.colors != null) {
             gl.bindBuffer(gl.ARRAY_BUFFER, this.cBuffer);
-            if (gl.getAttribLocation(this.material.shader.program, "aVertexColor") != -1)
+            if (gl.getAttribLocation(this.material.shader.program, "color") != -1)
                 gl.vertexAttribPointer(this.material.shader.program.vertexColorAttribute,
                                             this.cBuffer.itemSize, gl.FLOAT, false, 0, 0);
         }
         if (this.textureCoords != null) {
             gl.bindBuffer(gl.ARRAY_BUFFER, this.tBuffer);
-            if (gl.getAttribLocation(this.material.shader.program, "aTextureCoord") != -1)
+            if (gl.getAttribLocation(this.material.shader.program, "texCoords") != -1)
                 gl.vertexAttribPointer(this.material.shader.program.textureCoordAttribute,
                     this.tBuffer.itemSize, gl.FLOAT, false, 0, 0);
         }

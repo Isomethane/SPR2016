@@ -1,45 +1,27 @@
 function lightingPassManager() {
 
     this.initBuffers = function() {
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.lBuffer);
-
         for (var i = 0; i < this.textures.length; i++) {
             gl.bindTexture(gl.TEXTURE_2D, this.textures[i].texture);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.drawingBufferWidth, gl.drawingBufferHeight,
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, gl.drawingBufferWidth, gl.drawingBufferHeight,
                 0, gl.RGBA, gl.FLOAT, null);
         }
-        this.draw_buffers_ext.drawBuffersWEBGL(this.attachments);
 
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.lBuffer);
+        gl.drawBuffers(this.attachments);
         for (var i = 0; i < this.textures.length; i++) {
             gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachments[i], gl.TEXTURE_2D, this.textures[i].texture, 0);
         }
-        
+
         this.width = gl.drawingBufferWidth;
         this.height = gl.drawingBufferHeight;
     };
 
     this.init = function() {
-        this.draw_buffers_ext = gl.getExtension('WEBGL_draw_buffers');
-        if (!this.draw_buffers_ext) {
-            alert("Failed to init 'WEBGL_draw_buffers' extension.");
-        }
-        this.color_buffer_float_ext = gl.getExtension('WEBGL_color_buffer_float');
-        if (!this.color_buffer_float_ext) {
-            alert("Failed to init 'WEBGL_color_buffer_float' extension.");
-        }
-        this.texture_float_ext = gl.getExtension('OES_texture_float');
-        if (!this.texture_float_ext) {
-            alert("Failed to init 'OES_texture_float' extension.");
-        }
-        this.texture_float_linear_ext = gl.getExtension('OES_texture_float_linear');
-        if (!this.texture_float_linear_ext) {
-            alert("Failed to init 'OES_texture_float_linear' extension.");
-        }
-
         this.lBuffer = gl.createFramebuffer();
 
         this.lColor = new texture().init();
@@ -51,19 +33,21 @@ function lightingPassManager() {
         ];
         
         this.attachments = [
-            this.draw_buffers_ext.COLOR_ATTACHMENT0_WEBGL,
-            this.draw_buffers_ext.COLOR_ATTACHMENT1_WEBGL
+            gl.COLOR_ATTACHMENT0,
+            gl.COLOR_ATTACHMENT1
         ];
 
         this.initBuffers();
 
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
         return this;
     };
 
-    this.use = function(width, height) {
+    this.use = function() {
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.lBuffer);
 
-        if (this.width != width || this.height != height) {
+        if (this.width != gl.drawingBufferWidth || this.height != gl.drawingBufferHeight) {
             this.initBuffers();
         }
 

@@ -47,16 +47,16 @@ function shader(id) {
     this.apply = function() {
         gl.useProgram(this.program);
 
-        if ((this.program.vertexPositionAttribute = gl.getAttribLocation(this.program, "aVertexPosition")) != -1)
+        if ((this.program.vertexPositionAttribute = gl.getAttribLocation(this.program, "position")) != -1)
             gl.enableVertexAttribArray(this.program.vertexPositionAttribute);
 
-        if ((this.program.vertexNormalAttribute = gl.getAttribLocation(this.program, "aVertexNormal")) != -1)
+        if ((this.program.vertexNormalAttribute = gl.getAttribLocation(this.program, "normal")) != -1)
             gl.enableVertexAttribArray(this.program.vertexNormalAttribute);
         
-        if ((this.program.vertexColorAttribute = gl.getAttribLocation(this.program, "aVertexColor")) != -1)
+        if ((this.program.vertexColorAttribute = gl.getAttribLocation(this.program, "color")) != -1)
             gl.enableVertexAttribArray(this.program.vertexColorAttribute);
 
-        if ((this.program.textureCoordAttribute = gl.getAttribLocation(this.program, "aTextureCoord")) != -1)
+        if ((this.program.textureCoordAttribute = gl.getAttribLocation(this.program, "texCoords")) != -1)
             gl.enableVertexAttribArray(this.program.textureCoordAttribute);
     };
     

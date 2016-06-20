@@ -1,9 +1,11 @@
-attribute vec3 aVertexPosition;
-attribute vec2 aTextureCoord;
+#version 300 es
 
-varying vec2 coord;
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 texCoords;
+
+out vec2 TexCoords;
 
 void main(void) {
-    coord = aTextureCoord;
-    gl_Position = vec4(aVertexPosition, 1.0);
+    TexCoords = texCoords;
+    gl_Position = vec4(position, 1.0);
 }

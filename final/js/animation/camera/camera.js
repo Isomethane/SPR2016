@@ -34,7 +34,7 @@ function camera(anim, eye, center, up) {
                 var len = dir.length();
                 dir.normalize();
                 var rotate = new vec(Math.sqrt(dir.x * dir.x + dir.z * dir.z), dir.y, 0);
-                if (Math.abs(dir.y) < 0.9 || dir.y * deltaY < 0)
+                if (Math.abs(dir.y) < 0.99 || dir.y * deltaY < 0)
                     rotate.transform(new matr().setRotateZ(Math.PI / 3 * anim.deltaTime * deltaY));
                 var result = new vec(
                     rotate.x * dir.x / Math.sqrt(1 - dir.y * dir.y),

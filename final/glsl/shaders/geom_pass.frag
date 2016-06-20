@@ -1,19 +1,25 @@
-#extension GL_EXT_draw_buffers : require
+#version 300 es
 
 precision highp float;
-
-varying vec4 vPosition;
-varying vec3 vNormal;
 
 uniform vec3 ambient;
 uniform vec3 diffuse;
 uniform vec3 specular;
 uniform float shininess;
 
+in vec4 Position;
+in vec3 Normal;
+
+layout (location = 0) out vec3 gPosition;
+layout (location = 1) out vec3 gNormal;
+layout (location = 2) out vec3 gAmbient;
+layout (location = 3) out vec3 gDiffuse;
+layout (location = 4) out vec4 gSpecularShininess;
+
 void main(void) {
-    gl_FragData[0] = vPosition;
-    gl_FragData[1] = vec4(normalize(vNormal), 1.0);
-    gl_FragData[2] = vec4(ambient, 1.0);
-    gl_FragData[3] = vec4(diffuse, 1.0);
-    gl_FragData[4] = vec4(specular, shininess);
+    gPosition = Position.xyz;
+    gNormal = normalize(Normal);
+    gAmbient = ambient;
+    gDiffuse = diffuse;
+    gSpecularShininess = vec4(specular, shininess);
 }

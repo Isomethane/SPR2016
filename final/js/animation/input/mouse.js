@@ -30,6 +30,7 @@ function mouse() {
         this.canvas.addEventListener("mousedown", function(event) {
             self.down = true;
             self.downPos = self.getMousePos(event);
+            event.preventDefault();
         }, false);
 
         this.canvas.addEventListener("mouseup", function(event) {
@@ -42,6 +43,11 @@ function mouse() {
         }, false);
 
         this.canvas.addEventListener("DOMMouseScroll", function(event) {
+            self.wheelDelta -= ((event.wheelDelta) ? event.wheelDelta / 120 : event.detail / -3) || false;
+            event.preventDefault();
+        }, false);
+
+        this.canvas.addEventListener("mousewheel", function(event) {
             self.wheelDelta -= ((event.wheelDelta) ? event.wheelDelta / 120 : event.detail / -3) || false;
             event.preventDefault();
         }, false);

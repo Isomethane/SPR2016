@@ -35,7 +35,7 @@ function animation() {
 
         for (var i = 0; i < this.units.length; i++)
             this.units[i].render();
-
+        
         this.lightingManager.lightingPass();
 
         var self = this;
@@ -44,6 +44,9 @@ function animation() {
             self.time += self.deltaTime;
             self.render.stats.update();
             self.camera.updateMatrix();
+
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
             self.draw();
         });

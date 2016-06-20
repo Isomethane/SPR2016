@@ -57,7 +57,7 @@ function lightingManager(anim) {
     };
 
     this.geometryPass = function() {
-        this.geomManager.use(gl.drawingBufferWidth, gl.drawingBufferHeight);
+        this.geomManager.use();
     };
 
     this.updateLightingPassUniforms = function() {
@@ -103,11 +103,10 @@ function lightingManager(anim) {
     };
 
     this.lightingPass = function() {
-        this.lightManager.use(gl.drawingBufferWidth, gl.drawingBufferHeight);
+        this.lightManager.use();
         this.updateLightingPassUniforms();
         this.screenQuad.draw(0);
-        this.postProcManager.bloom(gl.drawingBufferWidth, gl.drawingBufferHeight,
-            this.screenQuad, this.lightManager.textures);
+        this.postProcManager.bloom(this.screenQuad, this.lightManager.textures);
     };
     
     return this;
